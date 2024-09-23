@@ -2,20 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package repositories;
+package com.mycompany.veterinaryclinicmanager.repositories;
 
-import com.mycompany.veterinaryclinicmanager.model.User;
+import com.mycompany.veterinaryclinicmanager.model.Role;
 
 /**
  *
  * @author user
  */
-public interface UserRepository {
+public interface RoleRepository {
 
-    public User findById(Long id);
+    public void save(Role role);
 
-    public User findByUsername(String username);
-
-    public void save(User user);
+    public Role findById(Long id);
 
 }

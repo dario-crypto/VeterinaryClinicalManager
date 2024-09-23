@@ -29,28 +29,18 @@ public class DayOfWork {
     @JoinColumn(name = "day_of_week_id")
     private DayOfWeek dayOfWeek;
     @OneToOne
-    @JoinColumn(name="clinic_id")
+    @JoinColumn(name = "clinic_id")
     private Clinic clinic;
+
+    public DayOfWork(SlotOfWork slot, DayOfWeek dayOfweek) {
+        this.slot = slot;
+        this.dayOfWeek = dayOfweek;
+    }
 
     public DayOfWork(SlotOfWork slot, DayOfWeek dayOfweek, Clinic clinic) {
         this.slot = slot;
         this.dayOfWeek = dayOfweek;
         this.clinic = clinic;
-    }
-
-    public boolean checkOverlap(List<DayOfWork> days) {
-
-        for (int i = 0; i < days.size() - 1; i++) {
-
-            if (isOverlap(days.get(i))) {
-
-                return true;
-            }
-
-        }
-
-        return false;
-
     }
 
     public boolean isOverlap(DayOfWork day) {

@@ -5,18 +5,29 @@
 package com.mycompany.veterinaryclinicmanager.model;
 
 import java.time.LocalDateTime;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author user
  */
+@Entity
+@Table(name = "reservations")
 public class Reservation {
 
+    @Id
+    @GeneratedValue
     private Long id;
     private LocalDateTime date;
+    @ManyToOne
     private Clinic clinic;
+    @ManyToOne
     private User user;
-    private Visit visit;
+    //private Visit visit;
     private String animalType;
 
 }

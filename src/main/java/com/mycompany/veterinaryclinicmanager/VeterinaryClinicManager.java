@@ -1,12 +1,14 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
-package com.mycompany.veterinaryclinicmanager.model;
+package com.mycompany.veterinaryclinicmanager;
 
+import com.mycompany.veterinaryclinicmanager.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-import repositories.UserRepository;
-import repositories.UserService;
+import com.mycompany.veterinaryclinicmanager.repositories.BaseService;
+import com.mycompany.veterinaryclinicmanager.repositories.UserRepository;
+import com.mycompany.veterinaryclinicmanager.repositories.UserService;
 
 /**
  *
@@ -27,9 +29,13 @@ public class VeterinaryClinicManager {
         em.close();
          */
 
-        UserRepository userRepository = UserService.getInstance();
-        User user = userRepository.findById(152L);
-        System.out.println(user);
+        UserService userService = UserService.getInstance(new BaseService());
+
+        User user = new User( "Luigi", "Rossi", "M", "0432423432", "luigi@gmail.com", "luigi");
+        //user.setId(2L);
+        System.out.println(user.getEmail());
+       // userService.save(user);
+        
 
     }
 }

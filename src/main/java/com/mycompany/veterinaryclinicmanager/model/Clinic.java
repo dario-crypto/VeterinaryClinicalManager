@@ -4,6 +4,8 @@
  */
 package com.mycompany.veterinaryclinicmanager.model;
 
+import com.mycompany.veterinaryclinicmanager.DayOfWorkOverlapException;
+import java.time.LocalTime;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,19 +49,39 @@ public class Clinic {
     private List<Visit> visites = new ArrayList<>();
     @OneToMany(mappedBy = "clinic")
     private List<DayOfWork> days = new ArrayList<>();
-    /*
-    public void addDayOfWork(DayOfWork dayOfWork) {
+    @OneToMany(mappedBy = "clinic")
+    private List<Reservation> reservations = new ArrayList<>();
+    
+    
+    
+    public void addDayOfWork(DayOfWork dayOfWork) throws Exception {
 
-        if (!dayOfWork.checkOverlap(days)) {
-            days.add(dayOfWork);
-            dayOfWork.setClinic(this);
-        } else {
-            //lancia eccezione
-        }
-
+      for(DayOfWork day: days){
+          
+          if(day.isOverlap(dayOfWork)){
+              throw new DayOfWorkOverlapException("Invalid temporal slot");
+          }
+      }
+      
+      days.add(dayOfWork);
     }
-     */
+     
 
+    
+    public static void main(String args[]) throws Exception{
+        
+        Clinic clinic = new Clinic();
+        SlotOfWork slotOfWork = new SlotOfWork(LocalTime.of(8, 30), LocalTime.of(9,30));
+        SlotOfWork slotOfWork2 = new SlotOfWork(LocalTime.of(10, 45),LocalTime.of(11,45));
+        DayOfWeek dayOfWeek = new DayOfWeek("MONDAY");
+        DayOfWork dayOfWork = new DayOfWork(slotOfWork,dayOfWeek, clinic);
+        DayOfWork dayOfWork2 = new DayOfWork(slotOfWork2,dayOfWeek, clinic);
+        clinic.addDayOfWork(dayOfWork);
+        clinic.addDayOfWork(dayOfWork2);
+        
+        
+        
+    }
 
     
 }

@@ -22,17 +22,19 @@ public class Anagrafica {
     private String surname;
     private String gender;
     private String phone;
-;
+
+
 
     public Anagrafica() {
 
     }
 
-    public Anagrafica(String name, String surname, String gender, String phone, String email) {
+    public Anagrafica(String name, String surname, String gender, String phone) {
         this.name = name;
         this.surname = surname;
         this.gender = gender;
         this.phone = phone;
+       
        
     }
 

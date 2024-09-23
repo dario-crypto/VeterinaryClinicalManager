@@ -2,18 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package repositories;
+package com.mycompany.veterinaryclinicmanager.utils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-import utils.MyEntityManager;
 
 /**
  *
  * @author user
  */
-public abstract class Service {
+public class MyEntityManager {
 
-    protected EntityManager entityManager =  Persistence.createEntityManagerFactory("persistenceUnit").createEntityManager();
+    public static EntityManager getInstance() {
+        return Persistence.createEntityManagerFactory("persistenceUnit").createEntityManager();
+    }
 
 }

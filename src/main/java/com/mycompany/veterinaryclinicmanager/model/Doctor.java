@@ -32,8 +32,9 @@ public class Doctor extends Anagrafica {
     private String email;
 
     public Doctor(Long id, String name, String surname, String gender, String phone, String email, String password) {
-        super(name, surname, gender, phone, email);
+        super(name, surname, gender, phone);
         this.id = id;
+        this.email = email;
 
     }
 

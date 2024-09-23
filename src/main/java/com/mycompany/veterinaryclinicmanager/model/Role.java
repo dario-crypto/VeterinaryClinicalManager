@@ -13,12 +13,15 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import com.mycompany.veterinaryclinicmanager.repositories.UserService;
 
 /**
  *
@@ -36,31 +39,54 @@ public class Role {
     private Long id;
     @Column(unique = true)
     private String role;
-    @ManyToMany
-    @JoinTable(name = "users_roles", joinColumns = {
-        @JoinColumn(name = "user_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "role_id")})
-
+    @OneToMany(mappedBy = "role")
     private List<User> users = new ArrayList<>();
 
     public Role() {
 
     }
-    
-    public void addUser(User user){
-        users.add(user);
-        
-    }
-
-    public Role(String role) {
+       public Role(String role) {
         this.role = role;
     }
-    
-    public static void main(String []args){
+
+
+    public void addUser(User user) {
+        users.add(user);
+        user.setRole(this);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 23 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Role other = (Role) obj;
+        return Objects.equals(this.id, other.id);
+    }
+
+ 
+    public static void main(String[] args) {
         
-     
+        Role admin = new Role("ROLE_ADMIN");
         
         
+        
+       
+
     }
 
 }

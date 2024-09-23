@@ -19,7 +19,6 @@ import lombok.Setter;
  *
  * @author user
  */
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,8 +32,12 @@ public class DayOfWeek {
 
     private String day;
     @OneToOne(mappedBy = "dayOfWeek")
-    
+
     private DayOfWork dayOfWork;
+
+    public DayOfWeek(String day) {
+        this.day = day;
+    }
 
     @Override
     public int hashCode() {
@@ -61,4 +64,3 @@ public class DayOfWeek {
     }
 
 }
-

@@ -7,12 +7,15 @@ package com.mycompany.veterinaryclinicmanager.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -36,20 +39,43 @@ public class User extends Anagrafica {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @ManyToMany(mappedBy = "users",cascade = { CascadeType.PERSIST ,CascadeType.REMOVE})
-    private List<Role> roles = new ArrayList<>();
+    @ManyToOne
+    private Role role;
     @OneToMany(mappedBy = "user")
     private List<Comment> comments = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Vote> votes = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Reservation> reservations = new ArrayList<>();
 
     public User() {
         super();
     }
 
-    public User(Long id, String name, String surname, String gender, String phone, String email, String password) {
-        super(name, surname, gender, phone, email);
-        this.id = id;
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        return Objects.equals(this.id, other.id);
+    }
+
+    public User(String name, String surname, String gender, String phone, String email, String password) {
+        super(name, surname, gender, phone);
+        this.email = email;
         this.password = password;
     }
 
@@ -63,12 +89,7 @@ public class User extends Anagrafica {
         votes.add(vote);
         vote.setUser(this);
     }
-    
-    public void addRole(Role role){
-        roles.add(role);
-        role.addUser(this);
-       
-    }
+
     
 
     @Override
